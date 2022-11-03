@@ -1,15 +1,11 @@
 ﻿using eShopSolution.Data.Configurations;
 using eShopSolution.Data.Entities;
+using eShopSolution.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace eShopSolution.Data.EF
 {
-    
+
     public class EShopDbContext : DbContext
     {
         public EShopDbContext(DbContextOptions options) : base(options)
@@ -38,6 +34,8 @@ namespace eShopSolution.Data.EF
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+
+            modelBuilder.Seed();
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
