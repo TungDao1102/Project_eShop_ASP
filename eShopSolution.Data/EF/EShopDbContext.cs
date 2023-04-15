@@ -1,19 +1,21 @@
 ﻿using eShopSolution.Data.Configurations;
 using eShopSolution.Data.Entities;
 using eShopSolution.Data.Extensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace eShopSolution.Data.EF
 {
 
-    public class EShopDbContext : DbContext
+    public class EShopDbContext : IdentityDbContext
     {
         public EShopDbContext(DbContextOptions options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //  base.OnModelCreating(modelBuilder);
+              base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new CartConfiguration());
 
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
@@ -34,6 +36,12 @@ namespace eShopSolution.Data.EF
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserAppClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserAppRoles").HasKey(x => new { x.RoleId, x.UserId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserAppLogins").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
 
             modelBuilder.Seed();
         }
