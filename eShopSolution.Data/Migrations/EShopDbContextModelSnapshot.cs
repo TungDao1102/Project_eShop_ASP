@@ -467,7 +467,7 @@ namespace eShopSolution.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Product", b =>
