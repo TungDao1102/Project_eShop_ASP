@@ -74,7 +74,18 @@ namespace eShopSolution.Application.Catalog.Products
 
         public Task<int> Update(ProductUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(request.Id);
+            var productTranslation = await _context.ProductTranslations.SingleOrDefaultAsync(x => x.ProductId == request.Id && x.LanguageId == request.LanguageId);
+            if (product == null || productTranslation == null) { throw new EShopException($"Cannot find a product: {request.Id}"); }
+            // do khong su dung auto mapper nen phai anh xa tung cai 1
+           
+            productTranslation.Name = request.Name;
+            productTranslation.Description = request.Description;
+            productTranslation.Details = request.Details;
+            productTranslation.SeoDescription = request.SeoDescription;
+            productTranslation.SeoTitle = request.SeoTitle;
+            productTranslation.SeoAlias = request.SeoAlias;
+            return await _context.SaveChangesAsync();
         }
 
         public Task<bool> UpdatePrice(int productId, decimal newPrice)
