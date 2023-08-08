@@ -9,7 +9,7 @@ namespace eShopSolution.Application.Catalog.Products.Dtos.Manage
     public class ProductUpdateRequest
     {
         public int Id { get; set; }
-        public int ProductId { set; get; }
+     //   public int ProductId { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
         public string Details { set; get; }
