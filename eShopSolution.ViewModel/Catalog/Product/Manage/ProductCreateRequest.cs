@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace eShopSolution.Application.Catalog.Products.Dtos.Manage
+﻿using Microsoft.AspNetCore.Http;
+namespace eShopSolution.ViewModel.Common.Manage
 {
     public class ProductCreateRequest
     {
@@ -21,5 +16,7 @@ namespace eShopSolution.Application.Catalog.Products.Dtos.Manage
 
         public string SeoAlias { get; set; }
         public string LanguageId { set; get; }
+
+        public IFormFile ThumbnailImage { get; set; }
     }
 }
